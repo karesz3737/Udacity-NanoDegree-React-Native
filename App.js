@@ -1,21 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+import { View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import StackNavigation from "./navigation/StackNavigation";
 
 export default function App() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const fetchFonts = () => {
+    return Font.loadAsync({
+      "PlayFair-bold": require("./fonts/PlayfairDisplay-Bold.ttf"),
+      "PlayFair-regular": require("./fonts/PlayfairDisplay-Regular.ttf"),
+    });
+  };
+
+  if (!isLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onError={(err) => console.log(err)}
+        onFinish={() => setIsLoaded(true)}
+      />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={styles.screen}>
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "#f7f7f7",
   },
 });
