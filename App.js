@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigation from "./navigation/StackNavigation";
+import TabNavigation from "./navigation/TabNavigation";
 
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -28,7 +29,7 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <NavigationContainer>
-        <StackNavigation />
+        <TabNavigation />
       </NavigationContainer>
     </View>
   );

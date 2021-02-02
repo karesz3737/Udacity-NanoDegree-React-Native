@@ -45,12 +45,17 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     backgroundColor:
       Platform.OS === "ios" ? colors.iosmain : colors.androidmain,
+
+    elevation: 2,
+    shadowColor: "black",
+    shadowOpacity: 0.36,
+    shadowOffset: { width: 0, height: 1 },
   },
   textRight: {
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    paddingVertical: 6,
+    paddingVertical: 5,
     fontSize: 18,
     fontFamily: "PlayFair-bold",
   },
