@@ -9,7 +9,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Dimensions } from "react-native";
 import colors from "../helpers/colors";
-const Deckcards = ({ title, id, navigation }) => {
+const Deckcards = ({ title, navigation, length }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate("QuizScreen", { title })}
@@ -26,7 +26,7 @@ const Deckcards = ({ title, id, navigation }) => {
           <Text style={styles.textStyle}>{title}</Text>
         </View>
         <View style={styles.iconRight}>
-          <Text style={styles.textRight}>{id}</Text>
+          <Text style={styles.textRight}>{length}</Text>
         </View>
       </View>
     </TouchableOpacity>

@@ -13,7 +13,7 @@ export const Mobilcontainer = (props) => {
   return <View style={styles.mobilcard}>{props.children}</View>;
 };
 
-export const QuizContainer = ({ title, navigation }) => {
+export const QuizContainerHelper = ({ title, navigation }) => {
   return (
     <View style={styles.quizCont}>
       <View>
@@ -21,7 +21,7 @@ export const QuizContainer = ({ title, navigation }) => {
       </View>
       <TouchableOpacity
         style={styles.buttonStyle}
-        onPress={() => navigation.navigate("QuizStartScreen")}
+        onPress={() => navigation.navigate("QuizStartScreen", { title })}
       >
         <Text style={{ fontFamily: "PlayFair-regular" }}>Start</Text>
       </TouchableOpacity>

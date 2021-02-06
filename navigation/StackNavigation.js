@@ -1,11 +1,14 @@
 import * as React from "react";
-import { createStackNavigator, HeaderTitle } from "@react-navigation/stack";
-import { Platform } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Platform, Button } from "react-native";
 import DeckScreen from "../screens/DeckScreen";
 import QuizScreen from "../screens/QuizScreen";
 import QuizStartScreen from "../screens/QuizStartScreen";
 import AddQuestionScreen from "../screens/AddQuestionScreen";
+import SuccessScreen from "../screens/SuccessScreen";
 import colors from "../helpers/colors";
+import { HeaderBackButton } from "@react-navigation/stack";
+import ResetScreen from "../screens/ResetScreen";
 
 const Stack = createStackNavigator();
 
@@ -46,6 +49,19 @@ const StackNavigation = (props) => {
           headerTitle: "Start Your Quiz",
         }}
       />
+      <Stack.Screen
+        name="ResetScreen"
+        component={ResetScreen}
+        options={({ navigation }) => ({
+          headerStyle: headerStyleMain.headerStyle,
+          headerTintColor: "white",
+          headerTitle: "Reset Your Score",
+
+          headerLeft: (props) => {
+            return <HeaderBackButton onPress={() => navigation.popToTop()} />;
+          },
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -66,6 +82,15 @@ export const QuestionStackNavigator = () => {
           headerStyle: headerStyleMain.headerStyle,
           headerTintColor: headerStyleMain.headerTintColor,
           headerTitle: "Add Your Question",
+        }}
+      />
+      <Stack.Screen
+        name="SuccessScreen"
+        component={SuccessScreen}
+        options={{
+          headerStyle: headerStyleMain.headerStyle,
+          headerTintColor: headerStyleMain.headerTintColor,
+          headerTitle: "Success",
         }}
       />
     </Stack.Navigator>

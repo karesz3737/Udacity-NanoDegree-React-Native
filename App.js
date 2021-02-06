@@ -2,17 +2,23 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { View, StyleSheet } from "react-native";
 import React, { useState } from "react";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
-import StackNavigation from "./navigation/StackNavigation";
 import TabNavigation from "./navigation/TabNavigation";
+import dataObjRed from "./reducers/index";
+import thunk from "redux-thunk";
 
 export default function App() {
+  const store = createStore(dataObjRed);
+  // console.log("Initial state: ", store.getState());
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchFonts = () => {
     return Font.loadAsync({
       "PlayFair-bold": require("./fonts/PlayfairDisplay-Bold.ttf"),
       "PlayFair-regular": require("./fonts/PlayfairDisplay-Regular.ttf"),
+      "PlayFair-bold-italic": require("./fonts/PlayfairDisplay-BoldItalic.ttf"),
     });
   };
 
@@ -29,7 +35,9 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <NavigationContainer>
-        <TabNavigation />
+        <Provider store={store}>
+          <TabNavigation />
+        </Provider>
       </NavigationContainer>
     </View>
   );

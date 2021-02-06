@@ -2,11 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../helpers/colors";
-import { Mobilcontainer, QuizContainer } from "../helpers/containers";
+import { Mobilcontainer } from "../helpers/containers";
+import { QuizContainerHelper } from "../helpers/containers";
 
 const QuizScreen = (props) => {
-  const title = props.route.params.title;
-
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Mobilcontainer>
@@ -16,9 +15,12 @@ const QuizScreen = (props) => {
           color={Platform.OS === "ios" ? colors.iosmain : colors.androidmain}
         />
       </Mobilcontainer>
-      <QuizContainer title={title} navigation={props.navigation} />
+      <QuizContainerHelper
+        navigation={props.navigation}
+        title={props.route.params.title}
+      />
     </View>
   );
 };
-const styles = StyleSheet.create({});
+
 export default QuizScreen;
