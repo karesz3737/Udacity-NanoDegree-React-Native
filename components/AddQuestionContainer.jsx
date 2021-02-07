@@ -24,8 +24,8 @@ const AddQuestionContainer = ({ navigation }) => {
   const [sent, isSent] = useState(false);
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log(state);
+  // const state = useSelector((state) => state.data);
+
   const onSubmit = (data) => {
     const { answer, question, deck } = data;
     dispatch(addDeck(answer, question, deck));

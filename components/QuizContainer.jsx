@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import colors from "../helpers/colors";
 import {
@@ -9,39 +10,44 @@ import {
   Platform,
   Dimensions,
 } from "react-native";
-
+import { addScore } from "../actions/index";
 const QuizContainer = (props) => {
-  const [score, setScore] = useState([]);
   const [nextMove, setNextMove] = useState(0);
-  const question = useSelector((state) => state[props.title].questions);
+  const question = useSelector((state) => state.data[props.title].questions);
   const [ttt, setRRR] = useState("question");
   const [disabled, setDisabled] = useState(false);
-
+  const dispatch = useDispatch();
   const addNext = () => {
-    if (nextMove !== undefined && nextMove !== question.length - 1) {
+    if (nextMove !== undefined && nextMove != question.length - 1) {
       setNextMove((curr) => curr + 1);
       setRRR("question");
     } else {
       setDisabled(true);
-      props.navigation.push("ResetScreen", {
-        data: score,
-        title: props.title,
-      });
+      setTimeout(() => {
+        props.navigation.push("ResetScreen", {
+          title: props.title,
+        });
+      }, 500);
     }
   };
   const display = (tit, nextMove) => {
     const questionOrAnswer = useSelector(
-      (state) => state[props.title].questions
+      (state) => state.data[props.title].questions
     );
     const current = questionOrAnswer[nextMove][tit];
     return current;
   };
-
-  const setNextScore = (val) => {
-    setScore(() => score.concat([val]));
+  const setNegativScore = () => {
+    dispatch(addScore(0));
     setTimeout(() => addNext(), 500);
   };
-
+  const setNextPositivScore = () => {
+    dispatch(addScore(1));
+    setTimeout(() => addNext(), 500);
+  };
+  const viewAnswer = () => {
+    setRRR("answer");
+  };
   return (
     <View style={styles.container}>
       <Text
@@ -60,7 +66,7 @@ const QuizContainer = (props) => {
       </View>
       <View style={styles.contSec}>
         <TouchableOpacity
-          onPress={() => setRRR("answer")}
+          onPress={() => viewAnswer()}
           style={[
             styles.buttonMainConfig,
             {
@@ -72,7 +78,7 @@ const QuizContainer = (props) => {
           <Text style={{ textAlign: "center", fontSize: 17 }}>View Answer</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => setNextScore(100)}
+          onPress={() => setNextPositivScore()}
           style={[styles.buttonMainConfig, { backgroundColor: "#b6f7b0" }]}
         >
           <Text style={{ textAlign: "center", fontSize: 17 }}>
@@ -84,7 +90,7 @@ const QuizContainer = (props) => {
         >
           <Text
             style={{ textAlign: "center", fontSize: 17 }}
-            onPress={() => setNextScore(150)}
+            onPress={() => setNegativScore()}
           >
             Incorrect Answer
           </Text>

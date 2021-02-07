@@ -1,6 +1,10 @@
-import { ADD_ALL_DATA, ADD_DECK } from "../actions/index";
+import {
+  ADD_ALL_DATA,
+  ADD_DECK,
+  ADD_SCORE,
+  RESET_SCORE,
+} from "../actions/index";
 
-const initial_state = { kertesz: [] };
 const dataObjRed = (state = {}, action) => {
   switch (action.type) {
     case ADD_ALL_DATA:
@@ -28,6 +32,17 @@ const dataObjRed = (state = {}, action) => {
         };
       }
 
+    default:
+      return state;
+  }
+};
+
+export const UserScore = (state = [], action) => {
+  switch (action.type) {
+    case ADD_SCORE:
+      return state.concat(action.score);
+    case RESET_SCORE:
+      return [];
     default:
       return state;
   }

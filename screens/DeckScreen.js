@@ -2,20 +2,25 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Platform, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../helpers/colors";
-import { dumyData } from "../data/data";
 import Deckcards from "../components/Deckcards";
 import { Mobilcontainer } from "../helpers/containers";
 import { useDispatch, useSelector } from "react-redux";
 import { addAllData } from "../actions/index";
-import { DataObj } from "../data/data";
+import { getItems } from "../data/asyncstorage";
 
 const DeckScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(addAllData(DataObj));
-  }, [dispatch]);
+    getItems().then(
+      (val) => {
+        dispatch(addAllData(val));
+      },
+      [dispatch]
+    );
+  });
+
   const dataInd = useSelector((state) =>
-    Object.keys(state).map((el) => state[el])
+    Object.keys(state.data).map((el) => state.data[el])
   );
 
   const GridItem = (itemData) => {
@@ -46,7 +51,7 @@ const DeckScreen = ({ navigation }) => {
         <FlatList
           data={dataInd}
           renderItem={GridItem}
-          keyExtractor={(item, index) => item.index}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     </View>

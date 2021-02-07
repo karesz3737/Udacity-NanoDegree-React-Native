@@ -1,13 +1,14 @@
 import React from "react";
 import { View, Platform, StyleSheet } from "react-native";
 import { Mobilcontainer } from "../helpers/containers";
+import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../helpers/colors";
+import Reset from "../components/Reset";
 
 const ResetScreen = (props) => {
   const title = props.route.params.title;
-  const score = props.route.params.data;
-  console.log(score);
+
 
   return (
     <View
@@ -20,10 +21,23 @@ const ResetScreen = (props) => {
           color={Platform.OS === "ios" ? colors.iosmain : colors.androidmain}
         />
       </Mobilcontainer>
-      <View style={styles.mainComp}></View>
+      <View style={styles.mainComp}>
+        <Reset
+          title={title}
+          navigation={props.navigation}
+        />
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainComp: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "#f7f7f7",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 export default ResetScreen;
