@@ -5,7 +5,7 @@ import colors from "../helpers/colors";
 import Deckcards from "../components/Deckcards";
 import { Mobilcontainer } from "../helpers/containers";
 import { useDispatch } from "react-redux";
-import { getItems, clearAll } from "../data/asyncstorage";
+import { getItems } from "../data/asyncstorage";
 import { addAllData } from "../actions/index";
 
 const DeckScreen = ({ navigation }) => {

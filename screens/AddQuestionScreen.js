@@ -1,8 +1,5 @@
 import React from "react";
-import { View, Text, Platform, StyleSheet } from "react-native";
-import { Mobilcontainer } from "../helpers/containers";
-import { Ionicons } from "@expo/vector-icons";
-import colors from "../helpers/colors";
+import { View } from "react-native";
 import AddQuestionContainer from "../components/AddQuestionContainer";
 
 const AddQuestionScreen = ({ navigation }) => {

@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { allResetScore } from "../actions/index";
 import colors from "../helpers/colors";
-// import { clearAll } from "../data/asyncstorage";
 
 const Reset = (props) => {
   const [resetScore, setResetedScore] = useState("Your Score : ");
