@@ -1,6 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import {
-  Text,
   View,
   Platform,
   StyleSheet,
@@ -9,26 +8,25 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import LabelComp from "./LabelComp";
 import colors from "../helpers/colors";
-import { addDeck } from "../actions/index";
-import { useDispatch, useSelector } from "react-redux";
+import { addToStorage } from "../data/asyncstorage";
+import { Header } from "@react-navigation/stack";
 
 const AddQuestionContainer = ({ navigation }) => {
-  const { control, handleSubmit, reset, register, watch } = useForm();
+  const { control, handleSubmit, reset } = useForm();
   const deckRef = useRef();
   const questionRef = useRef();
   const answerRef = useRef();
   const [sent, isSent] = useState(false);
 
-  const dispatch = useDispatch();
-  // const state = useSelector((state) => state.data);
-
   const onSubmit = (data) => {
     const { answer, question, deck } = data;
-    dispatch(addDeck(answer, question, deck));
+    addToStorage(answer, question, deck);
+
     navigation.navigate("SuccessScreen");
     isSent(true);
     reset({
@@ -39,15 +37,20 @@ const AddQuestionContainer = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.const}>
-      <ScrollView>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={30}
-          style={{ flex: 1 }}
-        >
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "height" : null}
+      keyboardVerticalOffset={Header.height + 290}
+      style={{ flex: 1 }}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps={"handled"}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.const}>
           <View style={styles.cont}>
             <LabelComp inputname="Deck" />
+
             <Controller
               control={control}
               render={({ onChange, onBlur, value, name }) => (
@@ -65,6 +68,7 @@ const AddQuestionContainer = ({ navigation }) => {
               rules={{ required: true }}
             />
             <LabelComp inputname="Question" />
+
             <Controller
               control={control}
               render={({ onChange, onBlur, value, name }) => (
@@ -84,6 +88,7 @@ const AddQuestionContainer = ({ navigation }) => {
               rules={{ required: true }}
             />
             <LabelComp inputname="Answer" />
+
             <Controller
               control={control}
               render={({ onChange, onBlur, value, name }) => (
@@ -109,35 +114,32 @@ const AddQuestionContainer = ({ navigation }) => {
               />
             </View>
           </View>
-        </KeyboardAvoidingView>
+        </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const screen = Dimensions.get("screen").width;
+const screenHeight = Dimensions.get("screen").height;
 const styles = StyleSheet.create({
   const: {
     justifyContent: "center",
     alignItems: "center",
-    elevation: 2,
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 1 },
-    width: 400,
+    width: "100%",
     backgroundColor: "#e8e2e1",
-    height: "100%",
+    height: Platform.OS === "ios" ? "60%" : "80%",
   },
   cont: {
     width: "100%",
+    flex: 1,
+    backgroundColor: "#e8e2e1",
   },
   inputStyle: {
-    width: 300,
-    height: 50,
+    width: 350,
+    height: 40,
     elevation: 2,
-    // shadowColor: "black",
-    // shadowOpacity: 0.26,
-    // shadowOffset: { width: 0, height: 1 },
+
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderWidth: 1,
   },
   submitBtn: {
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: Platform.OS === "ios" ? colors.iosmain : "transparent",
     borderRadius: 5,
-    marginVertical: 30,
+    marginTop: 50,
   },
 });
 export default AddQuestionContainer;

@@ -23,7 +23,9 @@ export const getdata = async () => {
 export const getItems = async () => {
   try {
     const jsonValue = await AsyncStorage.getItem("@allData");
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    if (jsonValue !== null) {
+      return JSON.parse(jsonValue);
+    }
   } catch (e) {
     console.log(e);
   }
@@ -39,15 +41,36 @@ export const getOneItem = async () => {
     console.log(err);
   }
 };
-const addToStorage = (a, q, d) => {
-  let reply = {
-    question: q,
+export const addToStorage = async (a, q, d) => {
+  let answerData = {
     answer: a,
+    question: q,
   };
-  let jsonValue = JSON.stringify(reply);
+  let newObj = {};
 
-  
   try {
+    const jsonValue = await AsyncStorage.getItem("@allData").then((val) =>
+      JSON.parse(val)
+    );
+    console.log(jsonValue);
+    if (Object.keys(jsonValue).includes(d)) {
+      newObj = {
+        ...jsonValue,
+        [d]: {
+          ...jsonValue[d],
+          questions: [...jsonValue[d].questions, answerData],
+        },
+      };
+    } else {
+      newObj = {
+        ...jsonValue,
+        [d]: {
+          questions: [answerData],
+          title: d,
+        },
+      };
+    }
+    await AsyncStorage.setItem("@allData", JSON.stringify(newObj));
   } catch (err) {
     console.log(err);
   }

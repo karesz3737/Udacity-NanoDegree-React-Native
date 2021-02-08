@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { allResetScore } from "../actions/index";
 import colors from "../helpers/colors";
+// import { clearAll } from "../data/asyncstorage";
 
 const Reset = (props) => {
   const [resetScore, setResetedScore] = useState("Your Score : ");
@@ -31,7 +32,7 @@ const Reset = (props) => {
         Total Amount of questions: {res ? userlength : "0"}
       </Text>
       <Text style={styles.textStyle}>
-        0 Correct Questions {res ? positive : "0"}
+        Correct Questions {res ? positive : "0"}
       </Text>
       <Text style={styles.textStyle}>Your Score : {res ? total : "0"} %</Text>
       <TouchableOpacity

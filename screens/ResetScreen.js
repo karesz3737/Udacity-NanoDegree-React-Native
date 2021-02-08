@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Platform, StyleSheet } from "react-native";
 import { Mobilcontainer } from "../helpers/containers";
-import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../helpers/colors";
 import Reset from "../components/Reset";

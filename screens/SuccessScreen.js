@@ -1,13 +1,11 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-  ImageBackgroundComponent,
-} from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 
-const SuccessScreen = () => {
+const SuccessScreen = (props) => {
+  const finish = () => {
+    setTimeout(() => props.navigation.navigate("DeckScreen"), 2000);
+  };
+  finish();
   return (
     <View style={{ flex: 1, backgroundColor: "#e8e2e1", alignItems: "center" }}>
       <View style={{ paddingVertical: 20 }}>

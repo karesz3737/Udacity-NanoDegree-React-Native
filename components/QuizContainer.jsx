@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   Platform,
   Dimensions,
+  Alert,
+  ScrollView,
 } from "react-native";
 import { addScore } from "../actions/index";
 const QuizContainer = (props) => {
@@ -49,76 +51,94 @@ const QuizContainer = (props) => {
     setRRR("answer");
   };
   return (
-    <View style={styles.container}>
-      <Text
-        style={{
-          textAlign: "center",
-          fontFamily: "PlayFair-bold",
-          paddingVertical: 15,
-          fontSize: 19,
-          color: Platform.OS === "ios" ? colors.iosmain : colors.androidmain,
-        }}
-      >
-        Let's Begin...
-      </Text>
-      <View style={styles.textContainer}>
-        <Text style={styles.titleText}>{display(ttt, nextMove)}</Text>
-      </View>
-      <View style={styles.contSec}>
-        <TouchableOpacity
-          onPress={() => viewAnswer()}
-          style={[
-            styles.buttonMainConfig,
-            {
-              backgroundColor:
-                Platform.OS === "ios" ? colors.iosmain : colors.androidmain,
-            },
-          ]}
+    <ScrollView>
+      <View style={styles.container}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontFamily: "PlayFair-bold",
+            paddingVertical: 15,
+            fontSize: 19,
+            color: Platform.OS === "ios" ? colors.iosmain : colors.androidmain,
+          }}
         >
-          <Text style={{ textAlign: "center", fontSize: 17 }}>View Answer</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setNextPositivScore()}
-          style={[styles.buttonMainConfig, { backgroundColor: "#b6f7b0" }]}
-        >
-          <Text style={{ textAlign: "center", fontSize: 17 }}>
-            Correct Answer
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.buttonMainConfig, { backgroundColor: "#f7673b" }]}
-        >
-          <Text
-            style={{ textAlign: "center", fontSize: 17 }}
-            onPress={() => setNegativScore()}
+          Let's Begin...
+        </Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.titleText}>{display(ttt, nextMove)}</Text>
+        </View>
+        <View style={styles.contSec}>
+          <TouchableOpacity
+            onPress={() => viewAnswer()}
+            style={[
+              styles.buttonMainConfig,
+              {
+                backgroundColor:
+                  Platform.OS === "ios" ? colors.iosmain : colors.androidmain,
+              },
+            ]}
           >
-            Incorrect Answer
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.buttonMainConfig,
-            {
-              backgroundColor: !disabled
-                ? "#dba951"
-                : "rgba(199, 198, 195,0.5)",
-            },
-          ]}
-          disabled={disabled ? `disabled` : ""}
-          onPress={addNext}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 17,
-              opacity: !disabled ? 0.9 : 0.2,
-            }}
+            <Text style={{ textAlign: "center", fontSize: 17 }}>
+              View Answer
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setNextPositivScore()}
+            style={[styles.buttonMainConfig, { backgroundColor: "#b6f7b0" }]}
           >
-            Next
-          </Text>
-        </TouchableOpacity>
+            <Text style={{ textAlign: "center", fontSize: 17 }}>
+              Correct Answer
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.buttonMainConfig, { backgroundColor: "#f7673b" }]}
+          >
+            <Text
+              style={{ textAlign: "center", fontSize: 17 }}
+              onPress={() => setNegativScore()}
+            >
+              Incorrect Answer
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.buttonMainConfig,
+              {
+                backgroundColor: !disabled
+                  ? "#dba951"
+                  : "rgba(199, 198, 195,0.5)",
+              },
+            ]}
+            disabled={disabled ? `disabled` : ""}
+            onPress={() =>
+              Alert.alert(
+                "HI!!!",
+                "You are about to leave without getting a score",
+                [
+                  {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel",
+                  },
+                  { text: "OK", onPress: () => setNegativScore() },
+                ],
+                { cancelable: false }
+              )
+            }
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 17,
+                opacity: !disabled ? 0.9 : 0.2,
+              }}
+            >
+              Next
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 const screen = Dimensions.get("screen").width;

@@ -1,27 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Platform, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../helpers/colors";
 import Deckcards from "../components/Deckcards";
 import { Mobilcontainer } from "../helpers/containers";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getItems, clearAll } from "../data/asyncstorage";
 import { addAllData } from "../actions/index";
-import { getItems } from "../data/asyncstorage";
 
 const DeckScreen = ({ navigation }) => {
   const dispatch = useDispatch();
+  let [data, setData] = useState({});
   useEffect(() => {
-    getItems().then(
-      (val) => {
-        dispatch(addAllData(val));
-      },
-      [dispatch]
-    );
+    getItems().then((val) => {
+      setData(val);
+      dispatch(addAllData(val));
+    }, []);
   });
 
-  const dataInd = useSelector((state) =>
-    Object.keys(state.data).map((el) => state.data[el])
-  );
+  const dataInd = Object.keys(data).map((el) => data[el]);
 
   const GridItem = (itemData) => {
     return (
@@ -32,7 +29,6 @@ const DeckScreen = ({ navigation }) => {
       />
     );
   };
-  const state = useSelector((state) => state.title);
 
   return (
     <View style={styles.screen}>
@@ -44,7 +40,7 @@ const DeckScreen = ({ navigation }) => {
         />
       </Mobilcontainer>
       <View>
-        <Text style={styles.textStyle}>Mobil FleshCrads</Text>
+        <Text style={styles.textStyle}>Mobil FleshCards</Text>
       </View>
 
       <View style={styles.list}>

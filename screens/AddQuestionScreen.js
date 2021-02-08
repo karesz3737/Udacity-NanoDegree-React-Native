@@ -7,24 +7,14 @@ import AddQuestionContainer from "../components/AddQuestionContainer";
 
 const AddQuestionScreen = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
-      <Mobilcontainer>
-        <Ionicons
-          name="ios-leaf-outline"
-          size={45}
-          color={Platform.OS === "ios" ? colors.iosmain : colors.androidmain}
-        />
-      </Mobilcontainer>
-      <Text
-        style={{
-          fontSize: 18,
-          marginBottom: 20,
-          color: Platform.OS === "ios" ? "#4fafc4" : colors.androidmain,
-          fontFamily: "PlayFair-bold",
-        }}
-      >
-        Add Your Question!
-      </Text>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "flex-start",
+        backgroundColor: "#e8e2e1",
+      }}
+    >
       <AddQuestionContainer navigation={navigation} />
     </View>
   );
