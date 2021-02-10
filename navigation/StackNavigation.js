@@ -9,6 +9,7 @@ import SuccessScreen from "../screens/SuccessScreen";
 import colors from "../helpers/colors";
 import { HeaderBackButton } from "@react-navigation/stack";
 import ResetScreen from "../screens/ResetScreen";
+import TitleScreen from "../screens/TitleScreen";
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,53 @@ const StackNavigation = (props) => {
         }}
       />
       <Stack.Screen
+        name="AddQuestionScreen"
+        component={AddQuestionScreen}
+        options={({ route, navigation }) => ({
+          headerStyle: headerStyleMain.headerStyle,
+          headerTintColor: headerStyleMain.headerTintColor,
+          headerTitle: route.params.title,
+          headerBackTitle: "Back Home",
+          headerLeft: (props) => {
+            return (
+              <HeaderBackButton
+                label="Back Home"
+                {...props}
+                onPress={() => navigation.navigate("DeckScreen")}
+              />
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="SuccessScreen"
+        component={SuccessScreen}
+        options={({ navigation }) => ({
+          headerStyle: headerStyleMain.headerStyle,
+          headerTintColor: headerStyleMain.headerTintColor,
+          headerTitle: "Success",
+          headerBackTitle: "Back Home",
+          headerLeft: (props) => {
+            return (
+              <HeaderBackButton
+                label="Back Home"
+                {...props}
+                onPress={() => navigation.navigate("DeckScreen")}
+              />
+            );
+          },
+        })}
+      />
+      <Stack.Screen
+        name="TitleScreen"
+        component={TitleScreen}
+        options={{
+          headerStyle: headerStyleMain.headerStyle,
+          headerTintColor: headerStyleMain.headerTintColor,
+          headerTitle: "Create Your Deck",
+        }}
+      />
+      <Stack.Screen
         name="ResetScreen"
         component={ResetScreen}
         options={({ navigation }) => ({
@@ -74,24 +122,52 @@ export const QuestionStackNavigator = () => {
     headerTintColor: "white",
   };
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="TitleScreen">
       <Stack.Screen
-        name="AddQuestionScreen"
-        component={AddQuestionScreen}
+        name="TitleScreen"
+        component={TitleScreen}
         options={{
           headerStyle: headerStyleMain.headerStyle,
           headerTintColor: headerStyleMain.headerTintColor,
-          headerTitle: "Add Your Question",
+          headerTitle: "Create Your Deck",
         }}
+      />
+      <Stack.Screen
+        name="AddQuestionScreen"
+        component={AddQuestionScreen}
+        options={({ route, navigation }) => ({
+          headerStyle: headerStyleMain.headerStyle,
+          headerTintColor: headerStyleMain.headerTintColor,
+          headerTitle: route.params.deck,
+          headerBackTitle: "Back Home",
+          headerLeft: (props) => {
+            return (
+              <HeaderBackButton
+                label="Back Home"
+                {...props}
+                onPress={() => navigation.navigate("DeckScreen")}
+              />
+            );
+          },
+        })}
       />
       <Stack.Screen
         name="SuccessScreen"
         component={SuccessScreen}
-        options={{
+        options={() => ({
           headerStyle: headerStyleMain.headerStyle,
           headerTintColor: headerStyleMain.headerTintColor,
           headerTitle: "Success",
-        }}
+          headerLeft: (props) => {
+            return (
+              <HeaderBackButton
+                label="Back Home"
+                {...props}
+                onPress={() => navigation.navigate("DeckScreen")}
+              />
+            );
+          },
+        })}
       />
     </Stack.Navigator>
   );

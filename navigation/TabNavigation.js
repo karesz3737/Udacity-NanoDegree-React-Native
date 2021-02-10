@@ -3,7 +3,6 @@ import { Platform } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import StackNavigation from "./StackNavigation";
-import AddQuestionScreen from "../screens/AddQuestionScreen";
 import { QuestionStackNavigator } from "./StackNavigation";
 import colors from "../helpers/colors";
 import { Ionicons } from "@expo/vector-icons";

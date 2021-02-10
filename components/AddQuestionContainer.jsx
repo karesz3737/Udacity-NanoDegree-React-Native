@@ -8,7 +8,7 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
-  
+  Text,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import LabelComp from "./LabelComp";
@@ -16,7 +16,8 @@ import colors from "../helpers/colors";
 import { addToStorage } from "../data/asyncstorage";
 import { Header } from "@react-navigation/stack";
 
-const AddQuestionContainer = ({ navigation }) => {
+const AddQuestionContainer = (props) => {
+  const deck = props.deck;
   const { control, handleSubmit, reset } = useForm();
   const deckRef = useRef();
   const questionRef = useRef();
@@ -24,10 +25,10 @@ const AddQuestionContainer = ({ navigation }) => {
   const [sent, isSent] = useState(false);
 
   const onSubmit = (data) => {
-    const { answer, question, deck } = data;
+    const { answer, question } = data;
     addToStorage(answer, question, deck);
 
-    navigation.navigate("SuccessScreen");
+    props.navigation.navigate("SuccessScreen");
     isSent(true);
     reset({
       deckRef: "",
@@ -49,26 +50,8 @@ const AddQuestionContainer = ({ navigation }) => {
       >
         <View style={styles.const}>
           <View style={styles.cont}>
-            <LabelComp inputname="Deck" />
-
-            <Controller
-              control={control}
-              render={({ onChange, onBlur, value, name }) => (
-                <TextInput
-                  style={styles.inputStyle}
-                  onBlur={onBlur}
-                  onChangeText={(value) => onChange(value)}
-                  value={value}
-                  clearTextOnFocus={true}
-                  required={true}
-                />
-              )}
-              name="deck"
-              defaultValue=""
-              rules={{ required: true }}
-            />
+            <Text style={styles.textStyle}>Add question to : {deck}</Text>
             <LabelComp inputname="Question" />
-
             <Controller
               control={control}
               render={({ onChange, onBlur, value, name }) => (
@@ -140,15 +123,16 @@ const styles = StyleSheet.create({
     height: 40,
     elevation: 2,
 
-    shadowColor: "#000",
+    shadowColor: "#ccc",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     paddingHorizontal: 10,
-    borderWidth: 1,
+    borderWidth: 0.5,
+    borderColor: "#969190",
   },
   submitBtn: {
     width: "100%",
@@ -156,6 +140,14 @@ const styles = StyleSheet.create({
     backgroundColor: Platform.OS === "ios" ? colors.iosmain : "transparent",
     borderRadius: 5,
     marginTop: 50,
+  },
+  textStyle: {
+    fontSize: 17,
+    overflow: "hidden",
+    fontFamily: "PlayFair-bold",
+    textAlign: "left",
+    color: Platform.OS === "ios" ? colors.iosmain : colors.androidmain,
+    marginVertical: 20,
   },
 });
 export default AddQuestionContainer;

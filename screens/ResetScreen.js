@@ -7,12 +7,8 @@ import Reset from "../components/Reset";
 
 const ResetScreen = (props) => {
   const title = props.route.params.title;
-
-
   return (
-    <View
-      style={{ flex: 1, justifyContent: "flex-start", alignItems: "center" }}
-    >
+    <View style={styles.screen}>
       <Mobilcontainer>
         <Ionicons
           name="ios-leaf-outline"
@@ -21,10 +17,7 @@ const ResetScreen = (props) => {
         />
       </Mobilcontainer>
       <View style={styles.mainComp}>
-        <Reset
-          title={title}
-          navigation={props.navigation}
-        />
+        <Reset title={title} navigation={props.navigation} />
       </View>
     </View>
   );
@@ -38,5 +31,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  screen: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
 });
+
 export default ResetScreen;

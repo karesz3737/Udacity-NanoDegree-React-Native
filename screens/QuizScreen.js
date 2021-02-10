@@ -1,13 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet, Platform } from "react-native";
+import { useSelector } from "react-redux";
+import { View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../helpers/colors";
 import { Mobilcontainer } from "../helpers/containers";
 import { QuizContainerHelper } from "../helpers/containers";
 
 const QuizScreen = (props) => {
+  const title = props.route.params.title;
+  const numberOfQuestions = useSelector(
+    (state) => state.data[title].questions.length
+  );
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.screen}>
       <Mobilcontainer>
         <Ionicons
           name="ios-leaf-outline"
@@ -17,10 +23,18 @@ const QuizScreen = (props) => {
       </Mobilcontainer>
       <QuizContainerHelper
         navigation={props.navigation}
-        title={props.route.params.title}
+        title={title}
+        numberOfQuestions={numberOfQuestions}
       />
     </View>
   );
 };
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default QuizScreen;

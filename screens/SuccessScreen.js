@@ -1,13 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
+import SuccessButtonContainer from "../components/SuccesButtonContainer";
 const SuccessScreen = (props) => {
-  const finish = () => {
-    setTimeout(() => props.navigation.navigate("DeckScreen"), 2000);
-  };
-  finish();
   return (
-    <View style={{ flex: 1, backgroundColor: "#e8e2e1", alignItems: "center" }}>
+    <View style={styles.screen}>
       <View style={{ paddingVertical: 20 }}>
         <ImageBackground
           source={require("../assets/images/ClipartKey_578544.png")}
@@ -17,10 +19,10 @@ const SuccessScreen = (props) => {
       <Text style={{ fontFamily: "PlayFair-bold-italic", fontSize: 20 }}>
         Success
       </Text>
+      <SuccessButtonContainer navigation={props.navigation} />
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   imageCont: {
     width: 200,
@@ -28,6 +30,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
     marginTop: 40,
+  },
+  screen: {
+    flex: 1,
+    backgroundColor: "#e8e2e1",
+    alignItems: "center",
   },
 });
 

@@ -13,18 +13,39 @@ export const Mobilcontainer = (props) => {
   return <View style={styles.mobilcard}>{props.children}</View>;
 };
 
-export const QuizContainerHelper = ({ title, navigation }) => {
+export const QuizContainerHelper = ({
+  title,
+  navigation,
+  numberOfQuestions,
+}) => {
   return (
     <View style={styles.quizCont}>
       <View>
         <Text style={styles.titleText}>Your Choice: {title}</Text>
+        <Text style={styles.titleText}>
+          Remaining Questions : {numberOfQuestions}
+        </Text>
       </View>
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        onPress={() => navigation.navigate("QuizStartScreen", { title })}
-      >
-        <Text style={{ fontFamily: "PlayFair-regular" }}>Start</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonCont}>
+        <TouchableOpacity
+          style={[styles.buttonStyle, { backgroundColor: "#7cd9bd" }]}
+          onPress={() => navigation.navigate("AddQuestionScreen", { title })}
+        >
+          <Text style={{ fontFamily: "PlayFair-bold", fontSize: 12 }}>
+            Add a New Question
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() =>
+            navigation.navigate("QuizStartScreen", { title, numberOfQuestions })
+          }
+        >
+          <Text style={{ fontFamily: "PlayFair-bold", fontSize: 12 }}>
+            Start Your Quiz
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -32,7 +53,7 @@ const screen = Dimensions.get("screen").width;
 
 const styles = StyleSheet.create({
   mobilcard: {
-    paddingVertical: 40,
+    paddingVertical: 30,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -52,6 +73,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontFamily: "PlayFair-bold",
     fontSize: 20,
+    marginVertical: 25,
   },
   buttonStyle: {
     width: "40%",
@@ -64,5 +86,10 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOpacity: 0.16,
     shadowOffset: { width: 0, height: 1 },
+  },
+  buttonCont: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
   },
 });

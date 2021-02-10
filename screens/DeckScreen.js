@@ -6,15 +6,16 @@ import Deckcards from "../components/Deckcards";
 import { Mobilcontainer } from "../helpers/containers";
 import { useDispatch } from "react-redux";
 import { getItems } from "../data/asyncstorage";
-import { addAllData } from "../actions/index";
+import { addAllData, allResetScore } from "../actions/index";
 
 const DeckScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  let [data, setData] = useState({});
+  const [data, setData] = useState({});
   useEffect(() => {
     getItems().then((val) => {
       setData(val);
       dispatch(addAllData(val));
+      dispatch(allResetScore());
     }, []);
   });
 

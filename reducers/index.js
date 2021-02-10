@@ -36,13 +36,13 @@ const dataObjRed = (state = {}, action) => {
       return state;
   }
 };
-
-export const UserScore = (state = [], action) => {
+const initial_state = [];
+export const UserScore = (state = initial_state, action) => {
   switch (action.type) {
     case ADD_SCORE:
       return state.concat(action.score);
     case RESET_SCORE:
-      return [];
+      return initial_state;
     default:
       return state;
   }

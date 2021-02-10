@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Platform, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
+import { Mobilcontainer } from "../helpers/containers";
+import TitleInput from "../components/TitleInput";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../helpers/colors";
-import { Mobilcontainer } from "../helpers/containers";
-import QuizContainer from "../components/QuizContainer";
-const QuizStartScreen = (props) => {
+
+const TitleScreen = (props) => {
   return (
     <View style={styles.screen}>
       <Mobilcontainer>
@@ -14,19 +15,18 @@ const QuizStartScreen = (props) => {
           color={Platform.OS === "ios" ? colors.iosmain : colors.androidmain}
         />
       </Mobilcontainer>
-      <QuizContainer
-        title={props.route.params.title}
-        navigation={props.navigation}
-        numberOfQuestions={props.route.params.numberOfQuestions}
-      />
+      <TitleInput navigation={props.navigation} />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
 });
 
-export default QuizStartScreen;
+export default TitleScreen;

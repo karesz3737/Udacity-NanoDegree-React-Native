@@ -2,7 +2,10 @@ import React from "react";
 import { View } from "react-native";
 import AddQuestionContainer from "../components/AddQuestionContainer";
 
-const AddQuestionScreen = ({ navigation }) => {
+const AddQuestionScreen = (props) => {
+  const deck = props.route.params.deck;
+  const title = props.route.params.title;
+
   return (
     <View
       style={{
@@ -12,7 +15,11 @@ const AddQuestionScreen = ({ navigation }) => {
         backgroundColor: "#e8e2e1",
       }}
     >
-      <AddQuestionContainer navigation={navigation} />
+      {title ? (
+        <AddQuestionContainer navigation={props.navigation} deck={title} />
+      ) : (
+        <AddQuestionContainer navigation={props.navigation} deck={deck} />
+      )}
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,13 @@ import { allResetScore } from "../actions/index";
 import colors from "../helpers/colors";
 
 const Reset = (props) => {
+  const scr = useSelector((state) => state.UserScore);
+  useEffect(() => {
+    resetScoreScore(scr);
+  }, []);
   const [resetScore, setResetedScore] = useState("Your Score : ");
   const [res, setRes] = useState(true);
-  const userScore = useSelector((state) => state.UserScore);
+  const [userScore, resetScoreScore] = useState([]);
   const userlength = userScore.length;
   const positive = userScore.filter((el) => el > 0).length;
   const total = (positive / userlength) * 100;
@@ -21,8 +25,8 @@ const Reset = (props) => {
   const resetAll = () => {
     setResetedScore("Your Score has been reseted!");
     setRes(false);
-    setTimeout(() => props.navigation.navigate("DeckScreen"), 700);
-    setTimeout(() => dispatch(allResetScore), 700);
+    dispatch(allResetScore);
+    setTimeout(() => props.navigation.navigate("DeckScreen"), 800);
   };
   return (
     <View>
@@ -34,14 +38,24 @@ const Reset = (props) => {
         Correct Questions {res ? positive : "0"}
       </Text>
       <Text style={styles.textStyle}>Your Score : {res ? total : "0"} %</Text>
-      <TouchableOpacity
-        style={styles.buttonMainConfig}
-        onPress={() => resetAll()}
-      >
-        <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>
-          Reset Your Score
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonMainConfig}
+          onPress={() => resetAll()}
+        >
+          <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>
+            Reset Your Score
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.buttonMainConfig, { backgroundColor: "#7cd9bd" }]}
+          onPress={() => props.navigation.navigate("DeckScreen")}
+        >
+          <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>
+            Go To main Deck
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -69,6 +83,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
   },
 });
 export default Reset;
