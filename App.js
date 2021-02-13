@@ -1,6 +1,6 @@
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -8,13 +8,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import TabNavigation from "./navigation/TabNavigation";
 import { reducer } from "./reducers/data";
 import thunk from "redux-thunk";
-import { getdata } from "./data/asyncstorage";
+import { getdata, AsynctTime } from "./data/asyncstorage";
 
 export default function App() {
   const store = createStore(reducer, applyMiddleware(thunk));
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     getdata();
+    AsynctTime();
   }, []);
   const fetchFonts = () => {
     return Font.loadAsync({

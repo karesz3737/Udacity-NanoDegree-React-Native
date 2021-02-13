@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DataObj } from "./data";
 export const dataKey = "@allData";
-
+export const timeKey = "@time";
+const newdate = new Date(Date.now());
 export const getdata = async () => {
   try {
     const value = await AsyncStorage.getItem("@allData");
@@ -36,15 +37,15 @@ export const getOneItem = async () => {
     const value = await AsyncStorage.getItem("@allData")
       .then((val) => JSON.parse(val))
       .then((val) => val["React"].questions);
-    console.log(value);
   } catch (err) {
     console.log(err);
   }
 };
-export const addToStorage = async (a, q, d) => {
+export const addToStorage = async (a, q, d, id) => {
   let answerData = {
     answer: a,
     question: q,
+    id,
   };
   let newObj = {};
 
@@ -52,7 +53,7 @@ export const addToStorage = async (a, q, d) => {
     const jsonValue = await AsyncStorage.getItem("@allData").then((val) =>
       JSON.parse(val)
     );
-    console.log(jsonValue);
+
     if (Object.keys(jsonValue).includes(d)) {
       newObj = {
         ...jsonValue,
@@ -67,6 +68,7 @@ export const addToStorage = async (a, q, d) => {
         [d]: {
           questions: [answerData],
           title: d,
+          id,
         },
       };
     }
@@ -76,12 +78,46 @@ export const addToStorage = async (a, q, d) => {
   }
 };
 
+export const AsynctTime = async () => {
+  try {
+    const jasonvalue = await AsyncStorage.getItem("@time");
+    if (jasonvalue !== null) {
+      return null;
+    } else {
+      const jasonvalue = Date.now();
+      await AsyncStorage.setItem("@time", JSON.stringify(jasonvalue));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getTimeStamp = async () => {
+  try {
+    const jasonvalue = await AsyncStorage.getItem("@time");
+    if (jasonvalue !== null) {
+      return JSON.parse(jasonvalue);
+    } else {
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const resetTime = async () => {
+  try {
+    const jasonValue = Date.now();
+    await AsyncStorage.setItem("@time", JSON.stringify(jasonValue));
+  } catch (err) {
+    console.log(err);
+  }
+  console.log("it's done");
+};
+
 export const clearAll = async () => {
   try {
     await AsyncStorage.clear();
   } catch (e) {
     // clear error
   }
-
-  console.log("Done.");
 };

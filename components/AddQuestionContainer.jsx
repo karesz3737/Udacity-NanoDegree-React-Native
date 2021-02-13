@@ -16,6 +16,8 @@ import colors from "../helpers/colors";
 import { addToStorage } from "../data/asyncstorage";
 import { Header } from "@react-navigation/stack";
 
+const idItem = () => Math.random() * 100000;
+
 const AddQuestionContainer = (props) => {
   const deck = props.deck;
   const { control, handleSubmit, reset } = useForm();
@@ -26,7 +28,8 @@ const AddQuestionContainer = (props) => {
 
   const onSubmit = (data) => {
     const { answer, question } = data;
-    addToStorage(answer, question, deck);
+    const id = idItem();
+    addToStorage(answer, question, deck, id);
 
     props.navigation.navigate("SuccessScreen");
     isSent(true);

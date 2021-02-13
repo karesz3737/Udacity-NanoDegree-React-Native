@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { View, Platform, StyleSheet } from "react-native";
 import { Mobilcontainer } from "../helpers/containers";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,7 +7,14 @@ import colors from "../helpers/colors";
 import Reset from "../components/Reset";
 
 const ResetScreen = (props) => {
-  const title = props.route.params.title;
+  const [isfalse, setIsfalse] = useState(false);
+  const userScore = useSelector((state) => state.UserScore);
+  useEffect(() => {
+    if (userScore) {
+      console.log("hu");
+    }
+  }, [userScore]);
+
   return (
     <View style={styles.screen}>
       <Mobilcontainer>
@@ -17,7 +25,7 @@ const ResetScreen = (props) => {
         />
       </Mobilcontainer>
       <View style={styles.mainComp}>
-        <Reset title={title} navigation={props.navigation} />
+        <Reset navigation={props.navigation} userScore={userScore} />
       </View>
     </View>
   );

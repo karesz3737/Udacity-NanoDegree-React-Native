@@ -49,6 +49,25 @@ export const QuizContainerHelper = ({
     </View>
   );
 };
+
+export const Score = ({ userlength, positive, total }) => {
+  return (
+    <Text style={styles.textStyle}>
+      Total Qustions answered: {userlength}
+      Correct Answers: {positive}
+      Your Score : {total}
+    </Text>
+  );
+};
+
+export const RemainingQuestions = ({ remaingQuestions }) => {
+  return (
+    <Text style={styles.uperContainerText}>
+      Number Of Questions Remaining: {remaingQuestions}
+    </Text>
+  );
+};
+
 const screen = Dimensions.get("screen").width;
 
 const styles = StyleSheet.create({
@@ -69,6 +88,13 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOpacity: 0.16,
     shadowOffset: { width: 0, height: 1 },
+  },
+  uperContainerText: {
+    textAlign: "center",
+    fontFamily: "PlayFair-bold",
+    paddingVertical: 5,
+    fontSize: 17,
+    color: Platform.OS === "ios" ? colors.iosmain : colors.androidmain,
   },
   titleText: {
     fontFamily: "PlayFair-bold",

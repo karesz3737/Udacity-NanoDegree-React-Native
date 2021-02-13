@@ -13,6 +13,12 @@ import {
   ScrollView,
 } from "react-native";
 import { addScore } from "../actions/index";
+import DisplayScore from "./DisplayScore";
+import { RemainingQuestions } from "../helpers/containers";
+import Correct from "./Correct";
+import ButtonContainer from "./ButtonContainer";
+import { resetTime } from "../data/asyncstorage";
+
 const QuizContainer = (props) => {
   const [nextMove, setNextMove] = useState(0);
   const question = useSelector((state) => state.data[props.title].questions);
@@ -21,14 +27,17 @@ const QuizContainer = (props) => {
   const [remaingQuestions, setremaingQuestions] = useState(
     props.numberOfQuestions
   );
+
   const dispatch = useDispatch();
   const addNext = () => {
     if (nextMove !== undefined && nextMove != question.length - 1) {
       setNextMove((curr) => curr + 1);
       setRRR("question");
       setremaingQuestions((curr) => curr - 1);
+      resetTime();
     } else {
       setDisabled(true);
+      setremaingQuestions(0);
     }
   };
   const display = (tit, nextMove) => {
@@ -52,13 +61,24 @@ const QuizContainer = (props) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text style={styles.uperContainerText}>
-          Number Of Questions Remaining: {remaingQuestions}
+        <Text
+          style={
+            remaingQuestions !== 0
+              ? styles.uperContainerText
+              : styles.displayNone
+          }
+        >
+          Let's Begin...
         </Text>
-        <Text style={styles.uperContainerText}>Let's Begin...</Text>
+        {remaingQuestions !== 0 ? (
+          <RemainingQuestions remaingQuestions={remaingQuestions} />
+        ) : (
+          <DisplayScore rem={remaingQuestions} />
+        )}
         <View style={styles.textContainer}>
           <Text style={styles.titleText}>{display(ttt, nextMove)}</Text>
         </View>
+
         <View style={styles.contSec}>
           <TouchableOpacity
             onPress={() => viewAnswer()}
@@ -74,24 +94,11 @@ const QuizContainer = (props) => {
               View Answer
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setNextPositivScore()}
-            style={[styles.buttonMainConfig, { backgroundColor: "#b6f7b0" }]}
-          >
-            <Text style={{ textAlign: "center", fontSize: 17 }}>
-              Correct Answer
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.buttonMainConfig, { backgroundColor: "#f7673b" }]}
-          >
-            <Text
-              style={{ textAlign: "center", fontSize: 17 }}
-              onPress={() => setNegativScore()}
-            >
-              Incorrect Answer
-            </Text>
-          </TouchableOpacity>
+          <Correct
+            setNextPositivScore={setNextPositivScore}
+            setNegativScore={setNegativScore}
+          />
+
           <TouchableOpacity
             style={[
               styles.buttonMainConfig,
@@ -136,18 +143,16 @@ const QuizContainer = (props) => {
             <TouchableOpacity
               style={[styles.bbb, { backgroundColor: "#fcba03" }]}
               onPress={() =>
-                props.navigation.navigate("ResetScreen", {
-                  title: props.title,
-                })
+                props.navigation.navigate("QuizScreen", { title: props.title })
               }
             >
-              <Text style={styles.textStyle}>Your results</Text>
+              <Text style={styles.textStyle}>Restart Quiz</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.bbb, { backgroundColor: "#7cd9bd" }]}
               onPress={() => props.navigation.navigate("DeckScreen")}
             >
-              <Text style={styles.textStyle}>Main Deck</Text>
+              <Text style={styles.textStyle}>Back to Deck</Text>
             </TouchableOpacity>
           </View>
         </View>

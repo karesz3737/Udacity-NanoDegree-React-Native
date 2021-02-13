@@ -1,7 +1,8 @@
-
+const idItem = () => Math.random() * 100000;
 export const DataObj = {
   React: {
     title: "React",
+    id: idItem(),
     questions: [
       {
         question: "What is React?",
@@ -15,6 +16,7 @@ export const DataObj = {
   },
   JavaScript: {
     title: "JavaScript",
+    id: idItem(),
     questions: [
       {
         question: "What is a closure?",

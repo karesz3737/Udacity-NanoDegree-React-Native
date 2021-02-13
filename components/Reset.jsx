@@ -11,40 +11,45 @@ import { allResetScore } from "../actions/index";
 import colors from "../helpers/colors";
 
 const Reset = (props) => {
-  const scr = useSelector((state) => state.UserScore);
+  const item = props.userScore;
+  const [userScoreS, setUserScoreS] = useState([]);
   useEffect(() => {
-    resetScoreScore(scr);
-  }, []);
+    if (item) {
+      setUserScoreS(item);
+    } else {
+    }
+  }, [item]);
   const [resetScore, setResetedScore] = useState("Your Score : ");
   const [res, setRes] = useState(true);
-  const [userScore, resetScoreScore] = useState([]);
-  const userlength = userScore.length;
-  const positive = userScore.filter((el) => el > 0).length;
+  const userlength = userScoreS.length;
+  const positive = userScoreS.filter((el) => el > 0).length;
   const total = (positive / userlength) * 100;
   const dispatch = useDispatch();
   const resetAll = () => {
-    setResetedScore("Your Score has been reseted!");
-    setRes(false);
     dispatch(allResetScore);
-    setTimeout(() => props.navigation.navigate("DeckScreen"), 800);
+    setRes((curr) => !curr);
   };
   return (
     <View>
-      <Text style={styles.textStyle}>{resetScore}</Text>
+      <Text style={styles.textStyle}>
+        {!res ? "Your Score has been reseted!" : " Your Score"}
+      </Text>
       <Text style={styles.textStyle}>
         Total Amount of questions: {res ? userlength : "0"}
       </Text>
       <Text style={styles.textStyle}>
         Correct Questions {res ? positive : "0"}
       </Text>
-      <Text style={styles.textStyle}>Your Score : {res ? total : "0"} %</Text>
+      <Text style={styles.textStyle}>
+        Your Score : {res && item ? total.toFixed(0) : "0"} %
+      </Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.buttonMainConfig}
           onPress={() => resetAll()}
         >
           <Text style={{ fontSize: 16, color: "white", fontWeight: "bold" }}>
-            Reset Your Score
+            {res ? "Reset Your Score" : "View Your Score"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

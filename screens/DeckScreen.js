@@ -5,10 +5,29 @@ import colors from "../helpers/colors";
 import Deckcards from "../components/Deckcards";
 import { Mobilcontainer } from "../helpers/containers";
 import { useDispatch } from "react-redux";
-import { getItems } from "../data/asyncstorage";
+import { getItems, getTimeStamp, clearAll } from "../data/asyncstorage";
 import { addAllData, allResetScore } from "../actions/index";
+import * as Notifications from "expo-notifications";
 
 const DeckScreen = ({ navigation }) => {
+  const [value, setValue] = useState(
+    getTimeStamp().then((val) => setValue(val))
+  );
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    }),
+  });
+  const timeTriger = new Date(value) + 60 * 60 * 1000 * 24;
+  Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Look at that notification!!!!!",
+      body: "You haven't completed any Quiz for the last 24 hours",
+    },
+    trigger: { timeTriger, repeats: true },
+  });
   const dispatch = useDispatch();
   const [data, setData] = useState({});
   useEffect(() => {
@@ -48,7 +67,7 @@ const DeckScreen = ({ navigation }) => {
         <FlatList
           data={dataInd}
           renderItem={GridItem}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => item.id.toString()}
         />
       </View>
     </View>
