@@ -10,6 +10,7 @@ import colors from "../helpers/colors";
 import { HeaderBackButton } from "@react-navigation/stack";
 import ResetScreen from "../screens/ResetScreen";
 import TitleScreen from "../screens/TitleScreen";
+import GoAgainScreen from "../screens/GoAgainScreen";
 
 const Stack = createStackNavigator();
 
@@ -104,6 +105,19 @@ const StackNavigation = (props) => {
           headerStyle: headerStyleMain.headerStyle,
           headerTintColor: "white",
           headerTitle: "Reset Your Score",
+
+          headerLeft: (props) => {
+            return <HeaderBackButton onPress={() => navigation.popToTop()} />;
+          },
+        })}
+      />
+      <Stack.Screen
+        name="GoAgainScreen"
+        component={GoAgainScreen}
+        options={({ navigation }) => ({
+          headerStyle: headerStyleMain.headerStyle,
+          headerTintColor: "white",
+          headerTitle: "Let's start Again",
 
           headerLeft: (props) => {
             return <HeaderBackButton onPress={() => navigation.popToTop()} />;

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import colors from "../helpers/colors";
 import {
   StyleSheet,
@@ -16,12 +15,19 @@ import { addScore } from "../actions/index";
 import DisplayScore from "./DisplayScore";
 import { RemainingQuestions } from "../helpers/containers";
 import Correct from "./Correct";
-import ButtonContainer from "./ButtonContainer";
-import { resetTime } from "../data/asyncstorage";
+import { resetTime, getOneItem } from "../data/asyncstorage";
 
 const QuizContainer = (props) => {
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener("focus", () => {
+      getOneItem().then((val) => setQuestion(val[props.title].questions));
+    });
+
+    return unsubscribe;
+  }, [props.navigation]);
+
   const [nextMove, setNextMove] = useState(0);
-  const question = useSelector((state) => state.data[props.title].questions);
+  const [question, setQuestion] = useState(null);
   const [ttt, setRRR] = useState("question");
   const [disabled, setDisabled] = useState(false);
   const [remaingQuestions, setremaingQuestions] = useState(
@@ -29,24 +35,28 @@ const QuizContainer = (props) => {
   );
 
   const dispatch = useDispatch();
+
   const addNext = () => {
-    if (nextMove !== undefined && nextMove != question.length - 1) {
-      setNextMove((curr) => curr + 1);
-      setRRR("question");
-      setremaingQuestions((curr) => curr - 1);
-      resetTime();
-    } else {
-      setDisabled(true);
-      setremaingQuestions(0);
+    if (question !== null) {
+      if (nextMove !== undefined && nextMove != question.length - 1) {
+        setNextMove((curr) => curr + 1);
+        setRRR("question");
+        setremaingQuestions((curr) => curr - 1);
+        resetTime();
+      } else {
+        setDisabled(true);
+        setremaingQuestions(0);
+      }
     }
   };
-  const display = (tit, nextMove) => {
-    const questionOrAnswer = useSelector(
-      (state) => state.data[props.title].questions
-    );
-    const current = questionOrAnswer[nextMove][tit];
-    return current;
+  const updateF = () => {
+    setNextMove(0);
+    setDisabled(false);
+    setRRR("question");
+    setremaingQuestions(props.numberOfQuestions);
+    props.navigation.navigate("GoAgainScreen", { title: props.title });
   };
+
   const setNegativScore = () => {
     dispatch(addScore(0));
     addNext();
@@ -76,7 +86,9 @@ const QuizContainer = (props) => {
           <DisplayScore rem={remaingQuestions} />
         )}
         <View style={styles.textContainer}>
-          <Text style={styles.titleText}>{display(ttt, nextMove)}</Text>
+          <Text style={styles.titleText}>
+            {question !== null ? question[nextMove][ttt] : "Loading..."}
+          </Text>
         </View>
 
         <View style={styles.contSec}>
@@ -142,11 +154,11 @@ const QuizContainer = (props) => {
           >
             <TouchableOpacity
               style={[styles.bbb, { backgroundColor: "#fcba03" }]}
-              onPress={() =>
-                props.navigation.navigate("QuizScreen", { title: props.title })
-              }
+              onPress={() => updateF()}
             >
-              <Text style={styles.textStyle}>Restart Quiz</Text>
+              <Text style={styles.textStyle}>
+                Restart Quiz!
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.bbb, { backgroundColor: "#7cd9bd" }]}

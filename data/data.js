@@ -3,6 +3,7 @@ export const DataObj = {
   React: {
     title: "React",
     id: idItem(),
+    ridId: [1],
     questions: [
       {
         question: "What is React?",
@@ -17,6 +18,7 @@ export const DataObj = {
   JavaScript: {
     title: "JavaScript",
     id: idItem(),
+    ridId: [2],
     questions: [
       {
         question: "What is a closure?",

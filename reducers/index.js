@@ -3,6 +3,8 @@ import {
   ADD_DECK,
   ADD_SCORE,
   RESET_SCORE,
+  RESET_DECK,
+  RESTART_QUIZ,
 } from "../actions/index";
 
 const dataObjRed = (state = {}, action) => {
@@ -31,6 +33,8 @@ const dataObjRed = (state = {}, action) => {
           },
         };
       }
+    case RESET_DECK:
+      return state;
 
     default:
       return state;
@@ -43,6 +47,17 @@ export const UserScore = (state = initial_state, action) => {
       return state.concat(action.score);
     case RESET_SCORE:
       return initial_state;
+
+    default:
+      return state;
+  }
+};
+
+export const ResetId = (state = [], action) => {
+  switch (action.type) {
+    case RESTART_QUIZ: {
+      return state.concat(action.rid);
+    }
     default:
       return state;
   }

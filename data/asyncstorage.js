@@ -34,9 +34,10 @@ export const getItems = async () => {
 
 export const getOneItem = async () => {
   try {
-    const value = await AsyncStorage.getItem("@allData")
-      .then((val) => JSON.parse(val))
-      .then((val) => val["React"].questions);
+    const value = await AsyncStorage.getItem("@allData");
+    if (value !== null) {
+      return JSON.parse(value);
+    }
   } catch (err) {
     console.log(err);
   }

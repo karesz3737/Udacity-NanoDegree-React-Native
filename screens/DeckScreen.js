@@ -6,7 +6,7 @@ import Deckcards from "../components/Deckcards";
 import { Mobilcontainer } from "../helpers/containers";
 import { useDispatch } from "react-redux";
 import { getItems, getTimeStamp, clearAll } from "../data/asyncstorage";
-import { addAllData, allResetScore } from "../actions/index";
+import { addAllData } from "../actions/index";
 import * as Notifications from "expo-notifications";
 
 const DeckScreen = ({ navigation }) => {
@@ -34,7 +34,6 @@ const DeckScreen = ({ navigation }) => {
     getItems().then((val) => {
       setData(val);
       dispatch(addAllData(val));
-      dispatch(allResetScore());
     }, []);
   });
 
@@ -67,7 +66,7 @@ const DeckScreen = ({ navigation }) => {
         <FlatList
           data={dataInd}
           renderItem={GridItem}
-          keyExtractor={(item, index) => item.id.toString()}
+          key={(item) => item.id}
         />
       </View>
     </View>
