@@ -11,6 +11,7 @@ import thunk from "redux-thunk";
 import { getdata, AsynctTime } from "./data/asyncstorage";
 
 export default function App() {
+  console.disableYellowBox = true;
   const store = createStore(reducer, applyMiddleware(thunk));
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {

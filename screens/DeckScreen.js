@@ -66,7 +66,8 @@ const DeckScreen = ({ navigation }) => {
         <FlatList
           data={dataInd}
           renderItem={GridItem}
-          key={(item) => item.id}
+          // key={(item) => item.id}
+          keyExtractor={(item) => item.id}
         />
       </View>
     </View>

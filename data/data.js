@@ -1,4 +1,4 @@
-const idItem = () => Math.random() * 100000;
+const idItem = () => Math.random() * 1000000;
 export const DataObj = {
   React: {
     title: "React",
