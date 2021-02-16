@@ -86,12 +86,35 @@ const QuizContainer = (props) => {
           <DisplayScore rem={remaingQuestions} />
         )}
         <View style={styles.textContainer}>
-          <Text style={styles.titleText}>
+          <Text
+            style={
+              remaingQuestions !== 0 ? styles.titleText : styles.displayNone
+            }
+          >
             {question !== null ? question[nextMove][ttt] : "Loading..."}
           </Text>
         </View>
-
-        <View style={styles.contSec}>
+        <View
+          style={
+            remaingQuestions !== 0 ? styles.displayNone : styles.buttonConfig
+          }
+        >
+          <TouchableOpacity
+            style={[styles.bbb, { backgroundColor: "#fcba03" }]}
+            onPress={() => updateF()}
+          >
+            <Text style={styles.textStyle}>Restart Quiz!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.bbb, { backgroundColor: "#7cd9bd" }]}
+            onPress={() => props.navigation.navigate("DeckScreen")}
+          >
+            <Text style={styles.textStyle}>Back to Deck</Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={remaingQuestions !== 0 ? styles.contSec : styles.displayNone}
+        >
           <TouchableOpacity
             onPress={() => viewAnswer()}
             style={[
@@ -147,26 +170,6 @@ const QuizContainer = (props) => {
               Next
             </Text>
           </TouchableOpacity>
-          <View
-            style={
-              disabled === false ? styles.displayNone : styles.buttonConfig
-            }
-          >
-            <TouchableOpacity
-              style={[styles.bbb, { backgroundColor: "#fcba03" }]}
-              onPress={() => updateF()}
-            >
-              <Text style={styles.textStyle}>
-                Restart Quiz!
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.bbb, { backgroundColor: "#7cd9bd" }]}
-              onPress={() => props.navigation.navigate("DeckScreen")}
-            >
-              <Text style={styles.textStyle}>Back to Deck</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </View>
     </ScrollView>
@@ -229,9 +232,11 @@ const styles = StyleSheet.create({
   buttonConfig: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
+    width: "100%",
     height: 40,
+    marginVertical: 200,
   },
   bbb: {
     height: 40,
@@ -248,6 +253,7 @@ const styles = StyleSheet.create({
   },
   displayNone: {
     display: "none",
+    backgroundColor: "#e8eded",
   },
 });
 

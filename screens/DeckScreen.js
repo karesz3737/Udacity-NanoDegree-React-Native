@@ -67,7 +67,7 @@ const DeckScreen = ({ navigation }) => {
           data={dataInd}
           renderItem={GridItem}
           // key={(item) => item.id}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
         />
       </View>
     </View>

@@ -38,11 +38,11 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <NavigationContainer>
-        <Provider store={store}>
+      <Provider store={store}>
+        <NavigationContainer>
           <TabNavigation />
-        </Provider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </Provider>
     </View>
   );
 }
