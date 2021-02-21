@@ -9,10 +9,11 @@ import TabNavigation from "./navigation/TabNavigation";
 import { reducer } from "./reducers/data";
 import thunk from "redux-thunk";
 import { getdata, AsynctTime } from "./data/asyncstorage";
+import { LogBox } from "react-native";
 
 export default function App() {
-  console.disableYellowBox = true;
-  const store = createStore(reducer, applyMiddleware(thunk));
+  LogBox.ignoreAllLogs();
+  const store = createStore(reducer);
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     getdata();
