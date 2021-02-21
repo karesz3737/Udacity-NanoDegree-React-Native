@@ -35,9 +35,9 @@ On this Screen the application already fetches data from redux store and the new
 
 ```
 
-[![Deck.png](https://i.postimg.cc/BZLJ833h/Deck.png)](https://postimg.cc/dDYbXzLd)
 
-[![Simulator-Screen-Shot-i-Phone-8-Plus-2021-02-21-at-14-36-14.png](https://i.postimg.cc/K8txvDnJ/Simulator-Screen-Shot-i-Phone-8-Plus-2021-02-21-at-14-36-14.png)](https://postimg.cc/qNB91nD3)
+
+[![Simulator-Screen-Shot-i-Phone-8-Plus-2021-02-21-at-14-36-14.png](https://i.postimg.cc/K8txvDnJ/Simulator-Screen-Shot-i-Phone-8-Plus-2021-02-21-at-14-36-14.png)](https://postimg.cc/qNB91nD3) [![Deck.png](https://i.postimg.cc/BZLJ833h/Deck.png)](https://postimg.cc/dDYbXzLd)
 
 ### QuizScreen:
 
