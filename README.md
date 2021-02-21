@@ -55,9 +55,9 @@ If the user chooses a next question, an alert modal will pop up and warns the us
 
 ```
 
-[![Question.png](https://i.postimg.cc/fLPR0TkK/Question.png)](https://postimg.cc/PpmjgHWp)
+[![Question.png](https://i.postimg.cc/fLPR0TkK/Question.png)](https://postimg.cc/PpmjgHWp) | [![Qustions.png](https://i.postimg.cc/hPdNnPnB/Qustions.png)](https://postimg.cc/D87xdhmj)
 
-[![Qustions.png](https://i.postimg.cc/hPdNnPnB/Qustions.png)](https://postimg.cc/D87xdhmj)
+
 
 # ResetScreen:
 
@@ -65,9 +65,9 @@ If the user chooses a next question, an alert modal will pop up and warns the us
 The user can reset his/her score and will be navigated back to Home Screen.
 ```
 
-[![Reset-S.png](https://i.postimg.cc/8z8Qff4c/Reset-S.png)](https://postimg.cc/xcPFWCWV)
+[![Reset-S.png](https://i.postimg.cc/8z8Qff4c/Reset-S.png)](https://postimg.cc/xcPFWCWV) | [![Reset.png](https://i.postimg.cc/5t7CnJ6H/Reset.png)](https://postimg.cc/R3thZj19)
 
-[![Reset.png](https://i.postimg.cc/5t7CnJ6H/Reset.png)](https://postimg.cc/R3thZj19)
+
 
 # AddQuestionScreen:
 
@@ -76,9 +76,9 @@ User can add his/her on Deck and her/his question and the answer will be stored 
 The form was used is a React-hook-form.
 ```
 
-[![Add-Deck.png](https://i.postimg.cc/8PzVVV5k/Add-Deck.png)](https://postimg.cc/V5phjpn2)
+[![Add-Deck.png](https://i.postimg.cc/8PzVVV5k/Add-Deck.png)](https://postimg.cc/V5phjpn2) | [![Add-Deck.png](https://i.postimg.cc/Gh68BK6D/Add-Deck.png)](https://postimg.cc/4mbNq6f4)
 
-[![Add-Deck.png](https://i.postimg.cc/Gh68BK6D/Add-Deck.png)](https://postimg.cc/4mbNq6f4)
+
 
 # Succes Screen:
 
